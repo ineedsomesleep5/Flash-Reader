@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>Readrrr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- LIBRARY -->
+  <div id="screen-library" class="screen active">
+    <div class="header">
+      <h1 class="header-title">Library</h1>
+      <button class="icon-btn" id="btn-settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+      </button>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-num" id="stat-words">0</span>
+        <span class="stat-lbl">words read</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-time">0m</span>
+        <span class="stat-lbl">reading time</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-books">0</span>
+        <span class="stat-lbl">books</span>
+      </div>
+    </div>
+    <div class="content" id="library-list"></div>
+    <button class="fab" id="btn-add" aria-label="Add document">
+      <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+    </button>
+    <nav class="tab-bar">
+      <button class="tab-btn active" data-tab="library">Library</button>
+      <button class="tab-btn" data-tab="browse">Browse</button>
+    </nav>
+  </div>
+
+  <!-- BROWSE -->
+  <div id="screen-browse" class="screen">
+    <div class="header">
+      <h1 class="header-title">Browse</h1>
+    </div>
+    <div class="content">
+      <div class="search-bar">
+        <svg class="icon-sm" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="browse-search" placeholder="Search Wikipedia…" autocomplete="off">
+        <div class="loading-spinner" id="search-spinner"></div>
+      </div>
+      <div class="chip-row">
+        <button class="chip" id="chip-classics">E-Books</button>
+        <button class="chip" id="chip-wiki-daily">Wiki Featured</button>
+      </div>
+      <div id="browse-results">
+        <p class="empty-hint">Search for topics or browse classics to find something to read.</p>
+      </div>
+    </div>
+    <nav class="tab-bar">
+      <button class="tab-btn" data-tab="library">Library</button>
+      <button class="tab-btn active" data-tab="browse">Browse</button>
+    </nav>
+  </div>
+
+  <!-- DETAIL -->
+  <div id="screen-detail" class="screen">
+    <div class="header">
+      <button class="icon-btn" id="btn-detail-back" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <button class="danger-btn" id="btn-delete">Delete</button>
+    </div>
+    <div class="content">
+      <h1 id="detail-title" class="detail-title">Title</h1>
+
+      <div class="card stat-card">
+        <div class="stat-row">
+          <span id="detail-pct" class="stat-big">0%</span>
+          <span id="detail-words" class="stat-sub">0 / 0 words</span>
+        </div>
+        <div class="progress-track"><div id="detail-progress-bar" class="progress-fill" style="width:0%"></div></div>
+        <div class="stat-row" style="margin-top:8px;">
+          <span id="detail-eta" class="stat-sub"></span>
+          <button class="reset-btn" id="btn-reset-progress">Reset</button>
+        </div>
+      </div>
+
+      <p class="section-label">Preview — tap a word to jump</p>
+      <div id="detail-preview" class="preview-text"></div>
+
+      <button class="pill-button" id="btn-start-reading">Start Reading</button>
+
+      <div class="notes-panel">
+        <div class="notes-header">
+          <span class="notes-title">Notes &amp; Highlights</span>
+          <svg class="icon-sm" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </div>
+        <p class="notes-empty">Highlight text while reading to save it here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLASH READER -->
+  <div id="screen-flash" class="screen screen-black">
+    <div class="header">
+      <button class="icon-btn" id="btn-flash-close" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <div class="flash-progress-wrap">
+        <span id="flash-progress-text" class="flash-progress-text">0 / 0</span>
+        <input type="range" id="flash-scrubber" class="flash-scrubber" min="0" max="100" value="0">
+      </div>
+      <button class="icon-btn" id="btn-flash-settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+      </button>
+    </div>
+
+    <div class="flash-container" id="flash-container">
+      <div class="guide-rails">
+        <div class="tick top"></div>
+        <div class="tick bottom"></div>
+      </div>
+      <div id="flash-word" class="flash-word">
+        <span class="orp-pre"></span><span class="orp-red"></span><span class="orp-post"></span>
+      </div>
+    </div>
+
+    <div id="context-bar" class="context-bar"></div>
+
+    <div class="flash-controls">
+      <button class="hold-play-btn" id="hold-play-btn">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        Hold to Read
+      </button>
+    </div>
+
+    <div class="reader-bottom">
+      <span id="flash-wpm-label" class="wpm-label">450 WPM</span>
+      <input type="range" id="flash-wpm-slider" class="wpm-slider" min="100" max="1000" step="10" value="450">
+    </div>
+  </div>
+
+  <!-- MODAL: SETTINGS -->
+  <div id="modal-settings" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Settings</h2>
+        <button class="icon-btn modal-close" data-modal="modal-settings">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+      <div class="settings-row col">
+        <span>Speed: <b id="setting-wpm-val">450</b> WPM</span>
+        <input type="range" id="setting-wpm" min="100" max="1000" step="10" value="450">
+      </div>
+      <div class="settings-row">
+        <span>Font Size</span>
+        <select id="setting-font">
+          <option value="0.8">Small</option>
+          <option value="1.0" selected>Medium</option>
+          <option value="1.3">Large</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <span>Smart Pauses</span>
+        <input type="checkbox" id="setting-smart" checked>
+      </div>
+      <div class="settings-row">
+        <span>Chunk Size</span>
+        <select id="setting-chunk">
+          <option value="1" selected>1 word</option>
+          <option value="2">2 words</option>
+          <option value="3">3 words</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <span>Context Bar</span>
+        <input type="checkbox" id="setting-context">
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD DOCUMENT -->
+  <div id="modal-add" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add Document</h2>
+        <button class="icon-btn modal-close" data-modal="modal-add">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+      <div class="add-tabs">
+        <button class="add-tab active" data-add-tab="paste">Paste</button>
+        <button class="add-tab" data-add-tab="upload">Upload</button>
+      </div>
+      <div id="add-paste-area">
+        <div class="form-group">
+          <label for="add-title">Title</label>
+          <input type="text" id="add-title" placeholder="Optional">
+        </div>
+        <div class="form-group">
+          <label for="add-text">Content</label>
+          <textarea id="add-text" placeholder="Paste your text here…"></textarea>
+        </div>
+      </div>
+      <div id="add-upload-area" style="display:none">
+        <div class="form-group">
+          <label for="file-upload">Upload .txt, .md, .epub, or .pdf</label>
+          <input type="file" id="file-upload" accept=".txt,.md,.epub,.pdf">
+        </div>
+      </div>
+      <button class="pill-button" id="btn-confirm-add">Add to Library</button>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="/src/app.js"></script>
+</body>
+</html>

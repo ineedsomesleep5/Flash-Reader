@@ -1,0 +1,18 @@
+﻿# Xcode
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Web prototype
+node_modules/
+dist/
+
+# System
+.DS_Store
+Thumbs.db
